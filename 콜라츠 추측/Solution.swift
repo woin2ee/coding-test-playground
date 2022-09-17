@@ -5,16 +5,21 @@ func solution(_ num: Int) -> Int {
     
     for count in 0..<500 {
         if result == 1 { return count }
-        switch result % 2 {
-        case 0:
+        
+        if result.isEven {
             result /= 2
-        case 1:
+        } else {
             result *= 3
             result += 1
-        default:
-            return -1
         }
     }
     
     return -1
+}
+
+extension Int {
+    var isEven: Bool {
+        if self & 1 == 0 { return true }
+        else { return false }
+    }
 }
