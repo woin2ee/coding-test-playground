@@ -1,18 +1,16 @@
 import Foundation
 
 extension Character {
-    func caesarEncrypt(distance: Int) -> Character? {
-        if self == " " { return " " }
+    func caesarEncrypt(distance: Int) -> Character {
+        let alphabets: [Character] = .init("abcdefghijklmnopqrstuvwxyz") // 26개
         
-        let lowerTable: [Character] = .init("abcdefghijklmnopqrstuvwxyz") // 26개
-        let upperTable: [Character] = lowerTable.map { Character($0.uppercased()) }
-        
-        if let index = lowerTable.firstIndex(of: self) {
-            return lowerTable[(index + distance) % 26]
-        } else if let index = upperTable.firstIndex(of: self) {
-            return upperTable[(index + distance) % 26]
+        guard let index = alphabets.firstIndex(of: Character(self.lowercased())) else {
+            return " "
         }
-        return nil
+        
+        let encryptedAlphabet = alphabets[(index + distance) % alphabets.count]
+
+        return self.isLowercase ? encryptedAlphabet : Character(encryptedAlphabet.uppercased())
     }
 }
 
